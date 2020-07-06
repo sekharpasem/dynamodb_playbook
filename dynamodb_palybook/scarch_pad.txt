@@ -54,5 +54,8 @@ aws dynamodb scan \
 #query
 aws dynamodb query \
     --table-name StarFleet \
-    --key-condition-expression 'ShipClass = :SC, Description = begins_with(Description,:D)' \
-    --expression-attribute-values '{":SC":{"S":"Excelsior"}}'
+    --key-condition-expression 'ShipClass = :SC and Registry = :R' \
+    --expression-attribute-values '{":SC":{"S":"Excelsior"}, ":R":{"S":"NCC-62043"}}'
+
+# delete table
+aws dynamodb delete-table --table-name StarFleet
