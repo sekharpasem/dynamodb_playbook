@@ -30,5 +30,29 @@ aws dynamodb batch-write-item --request-items file://batches/batch-010.json
 aws dynamodb batch-write-item --request-items file://batches/batch-011.json
 aws dynamodb batch-write-item --request-items file://batches/batch-012.json
 
-
+# get item
 # aws dynamodb get-item --table-name StarFleet --key file://key.json
+
+# batch get item
+aws dynamodb batch-get-item --request-items file://requests_keys.json
+
+# delete item
+aws dynamodb get-item --table-name StarFleet --key file://delete_key.json
+
+# put item
+aws dynamodb put-item --table-name StarFleet --item file://item.json --return-consumed-capacity TOTAL
+
+# update item
+....
+
+# scan 
+aws dynamodb scan \
+    --table-name StarFleet \
+    --filter-expression 'begins_with(Description,:D)' \
+    --expression-attribute-values '{":D":{"S":"Destroyed"}}'
+    
+#query
+aws dynamodb query \
+    --table-name StarFleet \
+    --key-condition-expression 'ShipClass = :SC, Description = begins_with(Description,:D)' \
+    --expression-attribute-values '{":SC":{"S":"Excelsior"}}'
